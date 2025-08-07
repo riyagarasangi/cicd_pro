@@ -19,8 +19,9 @@ phases:
       - aws deploy create-deployment \
           --application-name MyWebApp \
           --deployment-group-name MyWebAppDG \
-          --s3-location bucket=my-artifact-bucket,bundleType=zip,key=webapp.zip \
+          --s3-location bucket=my-webserver-artifacts,bundleType=zip,key=webapp.zip \
           --file-exists-behavior OVERWRITE
+
 artifacts:
   files:
     - '**/*'
