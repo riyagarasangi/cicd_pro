@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Installing dependencies
+  pre_build:
+    commands:
+      - echo Pre-build phase started
+  build:
+    commands:
+      - echo Build phase started
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Triggering deployment...
+      - aws deploy create-deployment \
+          --application-name MyWebApp \
+          --deployment-group-name MyWebAppDG \
+          --s3-location bucket=my-artifact-bucket,bundleType=zip,key=webapp.zip \
+          --file-exists-behavior OVERWRITE
+artifacts:
+  files:
+    - '**/*'
+  name: webapp
