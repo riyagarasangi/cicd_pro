@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo yum update -y
-sudo yum install -y python3 git
-sudo pip3 install flask
+echo "Installing application dependencies..."
+cd /home/ec2-user/my_webserver
+pip3 install -r requirements.txt
