@@ -3,30 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.11
     commands:
-      - echo Installing dependencies
-      - pip install -r my_webserver/requirements.txt
-
-  pre_build:
-    commands:
-      - echo Pre-build phase started
-
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt -t my_webserver/
   build:
     commands:
-      - echo Build phase started
-
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - echo Triggering deployment...
-      - aws deploy create-deployment \
-          --application-name MyWebApp \
-          --deployment-group-name MyWebAppDG \
-          --s3-location bucket=my-artifact-bucket,bundleType=zip,key=webapp.zip \
-          --file-exists-behavior OVERWRITE
-
+      - echo "Build phase complete"
 artifacts:
   files:
-    - '**/*'
-  name: webapp
+    - appspec.yml
+    - my_webserver/**/*
+    - scripts/**/*
